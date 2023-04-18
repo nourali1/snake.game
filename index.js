@@ -1,5 +1,6 @@
 const gameBoard = document.querySelector("#gameBoard");
 const ctx = gameBoard.getContext("2d");
+const highest=document.querySelector("#highscore");
 const scoreText = document.querySelector("#scoreText");
 const resetBtn = document.querySelector("#resetBtn");
 const gameWidth = gameBoard.width;
@@ -22,7 +23,6 @@ let snake = [
     {x:unitSize, y:0},
     {x:0, y:0}
 ];
-
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
 
@@ -161,3 +161,43 @@ function resetGame(){
     ];
     gameStart();
 };
+function changeDirection1()
+{
+
+    const goingUP = (yVelocity == -unitSize);
+    const goingDown = (yVelocity == unitSize);
+    const goingRight = (xVelocity == unitSize);
+    const goingLeft = (xVelocity == -unitSize);
+
+    
+        document.getElementById("leftbtn").ontouchstart=function(){ 
+            if(!goingRight)
+            {
+            xVelocity = -unitSize;
+            yVelocity = 0;
+            }
+           }
+            document.getElementById("upbtn").ontouchstart=function(){
+            if(!goingDown)
+            {
+            xVelocity = 0;
+            yVelocity = -unitSize;
+            }
+            }
+            document.getElementById("rightbtn").ontouchstart=function(){
+            if(!goingLeft)
+            {
+            xVelocity = unitSize;
+            yVelocity = 0;
+            }
+            }
+            document.getElementById("downbtn").ontouchstart=function(){
+            if(!goingUP)
+            {
+            xVelocity = 0;
+            yVelocity = unitSize;
+            }
+            }
+
+}
+changeDirection1();
