@@ -89,66 +89,51 @@ function drawSnake(){
         ctx.strokeRect(snakePart.x, snakePart.y, unitSize, unitSize);
     })
 };
-function changeDirection(event){
-    let keyPressed;
-
-    if (event.type === "keydown") {
-        keyPressed = event.keyCode;
-    } else if (event.type === "touchstart") {
-        const touchX = event.changedTouches[0].clientX;
-        const touchY = event.changedTouches[0].clientY;
-        const canvasRect = gameBoard.getBoundingClientRect();
-
-        if (touchX < canvasRect.left) {
-            keyPressed = 37; // left arrow key
-        } else if (touchX > canvasRect.right) {
-            keyPressed = 39; // right arrow key
-        } else if (touchY < canvasRect.top) {
-            keyPressed = 38; // up arrow key
-        } else if (touchY > canvasRect.bottom) {
-            keyPressed = 40; // down arrow key
-        }
-    }
-
+function changeDirection(event) {
     const LEFT = 37;
     const UP = 38;
     const RIGHT = 39;
     const DOWN = 40;
-
-    const goingUp = (yVelocity == -unitSize);
-    const goingDown = (yVelocity == unitSize);
-    const goingRight = (xVelocity == unitSize);
-    const goingLeft = (xVelocity == -unitSize);
-
-    switch(keyPressed){
-        case LEFT:
-            if(!goingRight){
-                xVelocity = -unitSize;
-                yVelocity = 0;
-            }
-            break;
-        case UP:
-            if(!goingDown){
-                xVelocity = 0;
-                yVelocity = -unitSize;
-            }
-            break;
-        case RIGHT:
-            if(!goingLeft){
-                xVelocity = unitSize;
-                yVelocity = 0;
-            }
-            break;
-        case DOWN:
-            if(!goingUp){
-                xVelocity = 0;
-                yVelocity = unitSize;
-            }
-            break;
+    
+    const keyPressed = event.keyCode || getTouchDirection(event);
+  
+    if (keyPressed === LEFT && xVelocity !== unitSize) {
+      xVelocity = -unitSize;
+      yVelocity = 0;
     }
-}
-
-
+  
+    if (keyPressed === UP && yVelocity !== unitSize) {
+      xVelocity = 0;
+      yVelocity = -unitSize;
+    }
+  
+    if (keyPressed === RIGHT && xVelocity !== -unitSize) {
+      xVelocity = unitSize;
+      yVelocity = 0;
+    }
+  
+    if (keyPressed === DOWN && yVelocity !== -unitSize) {
+      xVelocity = 0;
+      yVelocity = unitSize;
+    }
+  }
+  
+  function getTouchDirection(event) {
+    const touchX = event.touches[0].clientX;
+    const touchY = event.touches[0].clientY;
+    const canvasRect = gameBoard.getBoundingClientRect();
+  
+    if (touchX < canvasRect.left) {
+      return LEFT;
+    } else if (touchX > canvasRect.right) {
+      return RIGHT;
+    } else if (touchY < canvasRect.top) {
+      return UP;
+    } else if (touchY > canvasRect.bottom) {
+      return DOWN;
+    }
+  }
+  
 function checkGameOver(){
     switch(true){
         case (snake[0].x < 0):
@@ -190,3 +175,43 @@ function resetGame(){
     ];
     gameStart();
 };
+/*function changeDirection1()
+{
+
+    const goingUP = (yVelocity == -unitSize);
+    const goingDown = (yVelocity == unitSize);
+    const goingRight = (xVelocity == unitSize);
+    const goingLeft = (xVelocity == -unitSize);
+
+    
+             document.getElementById("leftbtn").ontouchstart=function(){ 
+            if(!goingRight)
+            {
+            xVelocity = -unitSize;
+            yVelocity = 0;
+            }
+           }
+            document.getElementById("upbtn").ontouchstart=function(){
+            if(!goingDown)
+            {
+            xVelocity = 0;
+            yVelocity = -unitSize;
+            }
+            }
+            document.getElementById("rightbtn").ontouchstart=function(){
+            if(!goingLeft)
+            {
+            xVelocity = unitSize;
+            yVelocity = 0;
+            }
+            }
+            document.getElementById("downbtn").ontouchstart=function(){
+            if(!goingUP)
+            {
+            xVelocity = 0;
+            yVelocity = unitSize;
+            }
+            }
+
+}
+changeDirection1()*/
