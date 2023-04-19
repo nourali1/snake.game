@@ -90,7 +90,26 @@ function drawSnake(){
     })
 };
 function changeDirection(event){
-    const keyPressed = event.keyCode;
+    let keyPressed;
+
+    if (event.type === "keydown") {
+        keyPressed = event.keyCode;
+    } else if (event.type === "touchstart") {
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+        const canvasRect = gameBoard.getBoundingClientRect();
+
+        if (touchX < canvasRect.left) {
+            keyPressed = 37; // left arrow key
+        } else if (touchX > canvasRect.right) {
+            keyPressed = 39; // right arrow key
+        } else if (touchY < canvasRect.top) {
+            keyPressed = 38; // up arrow key
+        } else if (touchY > canvasRect.bottom) {
+            keyPressed = 40; // down arrow key
+        }
+    }
+
     const LEFT = 37;
     const UP = 38;
     const RIGHT = 39;
@@ -120,6 +139,7 @@ function changeDirection(event){
             break;
     }
 };
+
 function checkGameOver(){
     switch(true){
         case (snake[0].x < 0):
@@ -161,34 +181,3 @@ function resetGame(){
     ];
     gameStart();
 };
-function changeDirection1(event) {
-    switch (event.target.id) {
-      case 'upbtn':
-        if (direction !== 'down') {
-          direction = 'up';
-        }
-        break;
-      case 'downbtn':
-        if (direction !== 'up') {
-          direction = 'down';
-        }
-        break;
-      case 'leftbtn':
-        if (direction !== 'right') {
-          direction = 'left';
-        }
-        break;
-      case 'rightbtn':
-        if (direction !== 'left') {
-          direction = 'right';
-        }
-        break;
-      default:
-        break;
-    }
-  }
-  document.getElementById('upbtn').addEventListener('ontouchstart', changeDirection1);
-  document.getElementById('leftbtn').addEventListener('ontouchstart', changeDirection1);
-  document.getElementById('downbtn').addEventListener('ontouchstart', changeDirection1);
-  document.getElementById('rightbtn').addEventListener('ontouchstart', changeDirection1);
-    
