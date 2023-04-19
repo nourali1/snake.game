@@ -170,13 +170,13 @@ function changeDirection1()
     const goingLeft = (xVelocity == -unitSize);
 
     
-        document.getElementById("leftbtn").ontouchstart=function(){ 
+            document.getElementById("leftbtn").ontouchstart=function(){ 
             if(!goingRight)
             {
             xVelocity = -unitSize;
             yVelocity = 0;
             }
-           }
+            }
             document.getElementById("upbtn").ontouchstart=function(){
             if(!goingDown)
             {
