@@ -161,43 +161,34 @@ function resetGame(){
     ];
     gameStart();
 };
-function changeDirection1()
-{
-
-    const goingUP = (yVelocity == -unitSize);
-    const goingDown = (yVelocity == unitSize);
-    const goingRight = (xVelocity == unitSize);
-    const goingLeft = (xVelocity == -unitSize);
-
+function changeDirection1(event) {
+    switch (event.target.id) {
+      case 'upbtn':
+        if (direction !== 'down') {
+          direction = 'up';
+        }
+        break;
+      case 'downbtn':
+        if (direction !== 'up') {
+          direction = 'down';
+        }
+        break;
+      case 'leftbtn':
+        if (direction !== 'right') {
+          direction = 'left';
+        }
+        break;
+      case 'rightbtn':
+        if (direction !== 'left') {
+          direction = 'right';
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  document.getElementById('upbtn').addEventListener('ontouchstart', changeDirection1);
+  document.getElementById('leftbtn').addEventListener('ontouchstart', changeDirection1);
+  document.getElementById('downbtn').addEventListener('ontouchstart', changeDirection1);
+  document.getElementById('rightbtn').addEventListener('ontouchstart', changeDirection1);
     
-            document.getElementById("leftbtn").ontouchstart=function(){ 
-            if(!goingRight)
-            {
-            xVelocity = -unitSize;
-            yVelocity = 0;
-            }
-            }
-            document.getElementById("upbtn").ontouchstart=function(){
-            if(!goingDown)
-            {
-            xVelocity = 0;
-            yVelocity = -unitSize;
-            }
-            }
-            document.getElementById("rightbtn").ontouchstart=function(){
-            if(!goingLeft)
-            {
-            xVelocity = unitSize;
-            yVelocity = 0;
-            }
-            }
-            document.getElementById("downbtn").ontouchstart=function(){
-            if(!goingUP)
-            {
-            xVelocity = 0;
-            yVelocity = unitSize;
-            }
-            }
-
-}
-changeDirection1();
