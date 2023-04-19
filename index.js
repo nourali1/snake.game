@@ -95,8 +95,8 @@ function changeDirection(event){
     if (event.type === "keydown") {
         keyPressed = event.keyCode;
     } else if (event.type === "touchstart") {
-        const touchX = event.touches[0].clientX;
-        const touchY = event.touches[0].clientY;
+        const touchX = event.changedTouches[0].clientX;
+        const touchY = event.changedTouches[0].clientY;
         const canvasRect = gameBoard.getBoundingClientRect();
 
         if (touchX < canvasRect.left) {
@@ -120,25 +120,34 @@ function changeDirection(event){
     const goingRight = (xVelocity == unitSize);
     const goingLeft = (xVelocity == -unitSize);
 
-    switch(true){
-        case(keyPressed == LEFT && !goingRight):
-            xVelocity = -unitSize;
-            yVelocity = 0;
+    switch(keyPressed){
+        case LEFT:
+            if(!goingRight){
+                xVelocity = -unitSize;
+                yVelocity = 0;
+            }
             break;
-        case(keyPressed == UP && !goingDown):
-            xVelocity = 0;
-            yVelocity = -unitSize;
+        case UP:
+            if(!goingDown){
+                xVelocity = 0;
+                yVelocity = -unitSize;
+            }
             break;
-        case(keyPressed == RIGHT && !goingLeft):
-            xVelocity = unitSize;
-            yVelocity = 0;
+        case RIGHT:
+            if(!goingLeft){
+                xVelocity = unitSize;
+                yVelocity = 0;
+            }
             break;
-        case(keyPressed == DOWN && !goingUp):
-            xVelocity = 0;
-            yVelocity = unitSize;
+        case DOWN:
+            if(!goingUp){
+                xVelocity = 0;
+                yVelocity = unitSize;
+            }
             break;
     }
-};
+}
+
 
 function checkGameOver(){
     switch(true){
