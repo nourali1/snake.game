@@ -25,6 +25,9 @@ let snake = [
 ];
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
+const leftBtn = document.querySelector("#leftbtn");
+leftBtn.addEventListener("touchstart", changeDirection1);
+
 
 gameStart();
 
@@ -170,12 +173,12 @@ function changeDirection1()
     const goingLeft = (xVelocity == -unitSize);
 
     
-             document.getElementById("leftbtn").ontouchstart=function(){       
-             if(!goingRight)
-             {
+             document.getElementById("leftbtn").ontouchstart=function(){      
+            if(!goingRight)
+            {   
             xVelocity = -unitSize;
             yVelocity = 0;
-             }
+            }        
            }
             document.getElementById("upbtn").ontouchstart=function(){
             if(!goingDown)
