@@ -89,51 +89,37 @@ function drawSnake(){
         ctx.strokeRect(snakePart.x, snakePart.y, unitSize, unitSize);
     })
 };
-function changeDirection(event) {
+function changeDirection(event){
+    const keyPressed = event.keyCode;
     const LEFT = 37;
     const UP = 38;
     const RIGHT = 39;
     const DOWN = 40;
-    
-    const keyPressed = event.keyCode || getTouchDirection(event);
-  
-    if (keyPressed === LEFT && xVelocity !== unitSize) {
-      xVelocity = -unitSize;
-      yVelocity = 0;
+
+    const goingUp = (yVelocity == -unitSize);
+    const goingDown = (yVelocity == unitSize);
+    const goingRight = (xVelocity == unitSize);
+    const goingLeft = (xVelocity == -unitSize);
+
+    switch(true){
+        case(keyPressed == LEFT && !goingRight):
+            xVelocity = -unitSize;
+            yVelocity = 0;
+            break;
+        case(keyPressed == UP && !goingDown):
+            xVelocity = 0;
+            yVelocity = -unitSize;
+            break;
+        case(keyPressed == RIGHT && !goingLeft):
+            xVelocity = unitSize;
+            yVelocity = 0;
+            break;
+        case(keyPressed == DOWN && !goingUp):
+            xVelocity = 0;
+            yVelocity = unitSize;
+            break;
     }
-  
-    if (keyPressed === UP && yVelocity !== unitSize) {
-      xVelocity = 0;
-      yVelocity = -unitSize;
-    }
-  
-    if (keyPressed === RIGHT && xVelocity !== -unitSize) {
-      xVelocity = unitSize;
-      yVelocity = 0;
-    }
-  
-    if (keyPressed === DOWN && yVelocity !== -unitSize) {
-      xVelocity = 0;
-      yVelocity = unitSize;
-    }
-  }
-  
-  function getTouchDirection(event) {
-    const touchX = event.touches[0].clientX;
-    const touchY = event.touches[0].clientY;
-    const canvasRect = gameBoard.getBoundingClientRect();
-  
-    if (touchX < canvasRect.left) {
-      return LEFT;
-    } else if (touchX > canvasRect.right) {
-      return RIGHT;
-    } else if (touchY < canvasRect.top) {
-      return UP;
-    } else if (touchY > canvasRect.bottom) {
-      return DOWN;
-    }
-  }
-  
+};
 function checkGameOver(){
     switch(true){
         case (snake[0].x < 0):
@@ -175,7 +161,7 @@ function resetGame(){
     ];
     gameStart();
 };
-/*function changeDirection1()
+function changeDirection1()
 {
 
     const goingUP = (yVelocity == -unitSize);
@@ -184,12 +170,10 @@ function resetGame(){
     const goingLeft = (xVelocity == -unitSize);
 
     
-             document.getElementById("leftbtn").ontouchstart=function(){ 
-            if(!goingRight)
-            {
+             document.getElementById("leftbtn").ontouchstart=function(){         
             xVelocity = -unitSize;
             yVelocity = 0;
-            }
+        
            }
             document.getElementById("upbtn").ontouchstart=function(){
             if(!goingDown)
@@ -214,4 +198,4 @@ function resetGame(){
             }
 
 }
-changeDirection1()*/
+changeDirection1();
