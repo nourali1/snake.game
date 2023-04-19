@@ -27,8 +27,12 @@ window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
 const leftBtn = document.querySelector("#leftbtn");
 leftBtn.addEventListener("touchstart", changeDirection1);
-
-
+const upBtn = document.querySelector("#upbtn");
+upBtn.addEventListener("touchstart", changeDirection1);
+const downBtn = document.querySelector("#downbtn");
+downBtn.addEventListener("touchstart", changeDirection1);
+const rightBtn = document.querySelector("#rightbtn");
+rightBtn.addEventListener("touchstart", changeDirection1);
 gameStart();
 
 function gameStart(){
